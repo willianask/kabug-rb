@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build'){
+            steps{
+                echo 'Building or Resolve Dependencies'
+                sh 'bundle install'
+            }
+        }
+        stage ('Test'){
+            steps{
+                echo 'Running Regression tests'
+            }
+        }
+        stage('UAT'){
+            steps{
+                echo 'Wait for user acceptance'
+                input(message: 'Go to production?', ok: 'yes')
+            }
+            
+        }
+        stage('Prod'){
+            steps{
+                echo 'WebApp is Ready :)'
+            }
+        }
+            
+    }
+    
+}
